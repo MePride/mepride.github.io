@@ -1,307 +1,256 @@
+
+
 <!DOCTYPE html>
-<html lang="">
+<html lang="" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    
-        <title></title>
-    
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="John Doe">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<meta name="format-detection" content="telephone=no">
-<meta name="author" content="John Doe" />
-<meta name="designer" content="minfive" />
-<meta name="keywords" content="null"/>
-<meta name="description" content="null" />
+    <title>Archive: 2018 - Hexo</title>
+    <meta name="description" content="">
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="format-detection" content="telephone=yes" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="robots" content="all" />
-
-<link rel="canonical" href="http://yoursite.com/archives/2018/index.html">
-
-<link rel="icon" type="image/png" href="undefined" sizes="32x32">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Prefetch -->
-
-
-
-
-
-
-<!-- CSS -->
-<link rel="stylesheet" href="/scss/base/index.css">
-
-<!-- RSS -->
-<link rel="alternate" href="/atom.xml" title="Hexo">
-
-<!-- 统计 -->
-<!-- 百度统计 -->
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-
-    
-    
-    <link rel="stylesheet" href="/scss/views/page/archive.css">
-
+    <meta name="keywords"
+          content="">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
 </head>
-<body ontouchstart>
-    
-        <!-- loading 页面 -->
-<div id="page-loading" class="page page-loading" style="background-image: url('undefined')"></div>
-    
+<body>
 
-    <div id="page" class="page js-hidden">
-        
-    <!-- 页头 -->
-<header class="page__small-header page__header--small">
-    <nav class="page__navbar">
-        <div class="page__container navbar-container">
-            <a class="page__logo" href="/" title="Hexo" alt="Hexo">
-                <img src="undefined" alt="Hexo">
-            </a>
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
 
-            <nav class="page__nav">
-                <ul class="nav__list clearfix">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            Hexo
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">Home</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">Archive</a></li>
                     
-                </ul>
-            </nav>
-
-            <button class="page__menu-btn" type="button">
-                <i class="iconfont icon-menu"></i>
-            </button>
-        </div>
-    </nav>
-</header>
-
-
-        
-    
-<main class="page__container page__main">
-    <div class="page__content">
-        
-        <nav class="mb-main__nav">
-            
-            <a
-                class="nav__item nav__item--selected"
-                href="javascript:void(0)"
-                alt="2018年">
-                2018年
-            </a>
-        
-        </nav> 
-    
-
-        <div class="page__posts clearfix">
-            
-                <div class="page__post">
-                    <article itemscope itemtype="http://schema.org/Article" class="page__mini-article">
-    <div class="mini-article__cover">
-        
-            <img itemprop="image" src="undefined" alt="Hello World"/>
-        
-        
-        <div itemprop="datePublished" content="" class="mini-article__date">
-            <span class="date__day">15</span>
-            
-                <span class="date__month">Jul</span>
-            
-        </div>
-        <a itemprop="url" class="iconfont icon-enter" href="/2018/07/15/hello-world/"></a>
-    </div>
-    <div class="mini-article__info">
-        <h3 itemprop="name" class="mini-article__title">
-            <a itemprop="url" href="/2018/07/15/hello-world/" title="Hello World">Hello World</a>
-        </h3>
-        <p class="mini-article__author">by 
-            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <a itemprop="url" href="" target="_blank">
-                    <span itemprop="name"></span>
-                </a>
-            </span>
-        </p>
-        <p itemprop="articleSection" class="min-article__desc">
-            
-        </p>
-        <div class="min-article__tags">
-            <i class="iconfont icon-tab"></i>
-            <ul class="tags__list clearfix">
-                
-            </ul>
-        </div>
-    </div>
-</article>
-
-                </div>
-            
-        </div>
-
-        
-            
-        <nav class="page__paginator">
-            <ul class="paginator__list clearfix">
-                
-            <li class="paginator__item">
-                <span>1</span>
-            </li>
-        
-            </ul>
-        </nav>
-    
-        
-    </div>
-
-    <aside class="page__sidebar">
-    <!--  -->
-
-    <form id="page-search-from" class="page__search-from" action="/search/">
-        <label class="search-form__item">
-            <input class="input" type="text" name="search" placeholder="Search...">
-            <i class="iconfont icon-search"></i>
-        </label>
-    </form>
-
-    
-
-    <div class="sidebar__block">
-        <h3 class="block__title">Categories</h3>
-        
-    </div>
-    
-    <div class="sidebar__block">
-        <h3 class="block__title">Latest Post</h3>
-        
-        <ul class="block-list latest-post-list">
-            
-                    <li class="latest-post-item">
-                        <a href="/2018/07/15/hello-world/" title="Hello World">
-                            <div class="item__cover">
-                                <img src="undefined" alt="Hello World" />
-                            </div>
-                            <div class="item__info">
-                                <h3 class="item__title">Hello World</h3>
-                                <span class="item__text">2018-07-15</span>
-                            </div>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
                         </a>
                     </li>
-                
-        </ul>
-    
-    </div>
-
-    <div class="sidebar__block">
-        <h3 class="block__title">Tags</h3>
-        
-        <ul class="block-list tag-list clearfix">
-            
-        </ul>
-    
-    </div>
-
-    <!-- <div class="sidebar__block">
-        <h3 class="block__title">Friend Links</h3>
-        <ul class="block-list">
-            
-        </ul>
-    </div> -->
-</aside>
-</main>
-
-
-        
-            <!-- 页脚 -->
-<footer class="page__footer">
-    <section class="footer__top">
-        <div class="page__container footer__container">
-            
-            <div class="footer-top__item footer-top__item--2">
-                <h3 class="item__title">About</h3>
-                <div class="item__content">
-                    <p class="item__text"></p>
-                    <ul class="footer__contact-info">
-                        <li class="contact-info__item">
-                            <i class="iconfont icon-address"></i>
-                            <span></span>
-                        </li>
-                        <li class="contact-info__item">
-                            <i class="iconfont icon-email2"></i>
-                            <span></span>
-                        </li>
-                    </ul>
-                </div>
+                    
+                </ul>
             </div>
 
-            
-            
-            
-            
-            
         </div>
-    </section>
-    <section class="footer__bottom">
-        <div class="page__container footer__container">
-            <p class="footer__copyright">©
-                <a href="https://github.com/Mrminfive/hexo-theme-skapp" target="_blank">Skapp</a> 2017 powered by
-                <a href="http://hexo.io/" target="_blank">Hexo</a>, made by 
-                <a href="https://github.com/Mrminfive" target="_blank">minfive</a>.
-            </p>
-            <ul class="footer__social-network clearfix">
-                
-            </ul>
-        </div>
-    </section>
-</footer>
-        
+    </div>
+</nav>
+    <div class="container container-narrow">
 
-        
-            <!-- 返回顶部 -->
-<div id="back-top" class="back-top back-top--hidden js-hidden">
-    <i class="iconfont icon-top"></i>
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>Hexo</h2>
+                <h5></h5>
+            </a>
+        </div>
+
+<div id="archive_container">
+
 </div>
-        
+
+<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+    
+    <a class="older-posts pagination-flex-right"></a>
+    
+    <span class="page-number pagination-flex-center">
+                        Page 1 of 1
+                    </span>
+    
+    <a class="older-posts pagination-flex-right"></a>
+    
+</nav>
+
+<div id="__pending_post_item_container" style="display:none">
+    
+    
+    <div>
+    <h3 class="section-title">
+        <a href="07">
+            2018/07
+        </a>
+    </h3>
+    
+
+    <div class="card-container">
+        <div class="card card-item clear-border card-top-patch">
+            <a class="a-block" href="/2018/07/15/hello-world/" rel="noopener noreferrer">
+                <div class="card-item-container clear-flex-xs">
+                    <div class="card-inner-cell">
+                        <h4 class="clear-margin">Hello World</h4>
+
+                        <p class=" post-block-desc clear-margin">
+                            07-15
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 
-    <!-- build:js /js/common.js -->
-        <script type="text/javascript" src="js/common/utils.js"></script>
-        <script type="text/javascript" src="js/common/pack.js"></script>
-        <script type="text/javascript" src="js/common/animation.js"></script>
-        <script type="text/javascript" src="js/layout/loading.js"></script>
-        <script type="text/javascript" src="js/layout/header.js"></script>
-        <script type="text/javascript" src="js/layout/back-top.js"></script>
-        <script type="text/javascript" src="js/layout/post.js"></script>
-    <!-- endbuild -->
+    
+    </div>
+
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">John Doe</a>
+    </p>
 
     
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
     
 
-    
-    
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
 
-     
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
 
 
+<script>
+    let archiveYearlyNodes;
+    let leftContainer;
+    let rightContainer;
+    let archiveContainer;
+    let lastColumnCount;
+    let loadingIndicator;
 
+    $(document).ready(function () {
+        loadingIndicator = $("#global-loading-indicator");
 
+        lastColumnCount = -1;
+        leftContainer = $('#stream_inner_left');
+        rightContainer = $('#stream_inner_right');
+        archiveContainer = $('#archive_container');
 
+        function reLayoutPosts() {
+            // suppress unnecessary re-layouts
+            let columnCount = window.innerWidth < 768 ? 1 : 2;
+            if (columnCount === lastColumnCount)return;
+            loadingIndicator.show();
+            lastColumnCount = columnCount;
+            archiveContainer.empty();
+            rightContainer.empty();
+            archiveYearlyNodes = $("#__pending_post_item_container").find("> div");
+            for (let i = 0; i < archiveYearlyNodes.length; i++) {
+                let leftHeight = 0;
+                let rightHeight = 0;
 
+                let yearly = $(archiveYearlyNodes[i]).clone();
+                let yearTitle = yearly.children()[0];
+                let yearContainer = $(document.createElement('div'));
+                let yearContainerInner = $(document.createElement('div'));
+                let yearContainerInnerL = $(document.createElement('div'));
+                let yearContainerInnerR = $(document.createElement('div'));
+                yearContainerInner.addClass("row stream-container");
+                yearContainerInnerL.addClass("col-lg-6 col-md-6 col-no-h-padding");
+                yearContainerInnerR.addClass("col-lg-6 col-md-6 col-no-h-padding");
 
+                yearContainerInner.append(yearContainerInnerL).append(yearContainerInnerR);
+                yearContainer.append(yearTitle).append(yearContainerInner);
+                archiveContainer.append(yearContainer);
+
+                let postEntries = yearly.find("> .card-container");
+                for (let j = 0; j < postEntries.length; j++) {
+                    let post = $(postEntries[j]);
+                    if (columnCount === 1 || leftHeight <= rightHeight) {
+                        console.log("Left, +" + post.height());
+                        yearContainerInnerL.append(post);
+                        leftHeight += post.height();
+                    } else {
+                        console.log("Right, +" + post.height());
+                        yearContainerInnerR.append(post);
+                        rightHeight += post.height();
+                    }
+                }
+
+            }
+            loadingIndicator.fadeOut(600);
+        }
+
+        $(window).resize(function () {
+            reLayoutPosts();
+        });
+
+        reLayoutPosts();
+    });
+</script>
 
 </body>
 </html>
