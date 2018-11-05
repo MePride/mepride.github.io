@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="咸鱼的开发日誌"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>这是一篇正经的ArchLinux安装指南 - Pride's</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="https://i.loli.net/2018/09/04/5b8e619c41726.png"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/MePride"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="https://i.loli.net/2018/09/04/5b8e64ca934c8.jpg"><div class="post-title"><h1 class="title">这是一篇正经的ArchLinux安装指南</h1><ul class="meta"><li><i class="icon icon-author"></i>Pride</li><li><i class="icon icon-clock"></i>10 Minutes</li><li><i class="icon icon-calendar"></i>2018年10月28日</li></ul></div></div><div class="article-content" style="max-width:800px"><p>​    写本文的主要原因是本学期的Linux课程让我想起去年被ArchLinux劝退…于是我再次被劝退，不过最后安装成功，故有了本文，<a href="http://bbs.archlinuxcn.org/viewtopic.php?id=1037" target="_blank" rel="noopener">官方wiki</a>&lt;==点这里。</p>
+<p>主要步骤为下：</p>
+<ol>
+<li>下载ArchLinux安装镜像并制作U盘启动工具</li>
+<li>从U盘启动</li>
+<li><p>联网</p>
+</li>
+<li><p>编辑镜像站文件</p>
+</li>
+<li><p>开始分区(UEFI+GPT)</p>
+</li>
+<li><p>格式化分区、挂载</p>
+</li>
+<li><p>开始安装基本操作系统</p>
+</li>
+<li><p>配置基础系统</p>
+</li>
+<li><p>引导系统</p>
+</li>
+<li><p>添加用户</p>
+</li>
+<li>网络配置</li>
+<li>安装桌面环境</li>
+</ol>
+<h3 id="1-下载ArchLinux安装镜像并-制作U盘启动工具"><a href="#1-下载ArchLinux安装镜像并-制作U盘启动工具" class="headerlink" title="1.下载ArchLinux安装镜像并 制作U盘启动工具"></a>1.下载ArchLinux安装镜像并 制作U盘启动工具</h3><p><a href="https://www.archlinux.org/download/" target="_blank" rel="noopener">下载地址</a></p>
+<p>将镜像写入U盘</p>
+<p><img src="https://i.loli.net/2018/11/05/5be059cdd04fa.png" alt="USBWrite"></p>
+<p>这里使用的是USBWriter:选择镜像文件 —&gt; 选择U盘 —-&gt; Write</p>
+<h3 id="2-从U盘启动"><a href="#2-从U盘启动" class="headerlink" title="2.从U盘启动"></a>2.从U盘启动</h3><p>通过U盘启动这里不再赘述</p>
+<p>选择第一项:Arch Linux archiso x86_64 UEFI USB</p>
+<p>进入系统后</p>
+<p><img src="https://i.loli.net/2018/11/05/5be0599fd5b5f.png" alt="TIM截图20181102001435"></p>
+<h3 id="3-联网"><a href="#3-联网" class="headerlink" title="3.联网"></a>3.联网</h3><ul>
+<li><h5 id="WiFi"><a href="#WiFi" class="headerlink" title="WiFi"></a>WiFi</h5></li>
+</ul>
+<p><code># wifi-menu</code></p>
+<ul>
+<li><h5 id="PPPOE"><a href="#PPPOE" class="headerlink" title="PPPOE"></a>PPPOE</h5></li>
+</ul>
+<p><code># pppoe-setup</code></p>
+<ul>
+<li><h5 id="ADSL"><a href="#ADSL" class="headerlink" title="ADSL"></a>ADSL</h5></li>
+</ul>
+<p><code>systemctl start adsl</code></p>
+<p>连接完成后进行</p>
+<p> <code># ping www.baidu.com</code>（或其他网址测试网络是否通）</p>
+<p>同步时间</p>
+<p><code># timedatectl set-ntp true</code></p>
+<h3 id="4-编辑镜像站文件"><a href="#4-编辑镜像站文件" class="headerlink" title="4.编辑镜像站文件"></a>4.编辑镜像站文件</h3><p>由于镜像站文件中大多为国外源，速度慢，所以添加国内镜像</p>
+<p><code># nano /etc/pacman.d/mirrorlist</code></p>
+<p>将第一行Server注释掉后，添加一行，这里使用163的镜像源</p>
+<p>ctrl + x退出，题是是否保存输入y回车以保存。</p>
+<p><img src="https://i.loli.net/2018/11/05/5be0599fd2f9f.png" alt="TIM截图20181102001706"></p>
+<h3 id="5-分区-UEFI-GPT"><a href="#5-分区-UEFI-GPT" class="headerlink" title="5.分区(UEFI + GPT)"></a>5.分区(UEFI + GPT)</h3><p><img src="https://i.loli.net/2018/11/05/5be0599fc95b0.png" alt="TIM截图20181102002122"></p>
+<p>本人是安装到物理主机上的，而此处是使用虚拟机来复现一些过程。</p>
+<p>分区方案：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">nvme0n1p1</th>
+<th style="text-align:center">200M</th>
+<th style="text-align:left">/boot/EFI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">nvme0n1p2</td>
+<td style="text-align:center">200M</td>
+<td style="text-align:left">/boot</td>
+</tr>
+<tr>
+<td style="text-align:left">nvme0n1p3</td>
+<td style="text-align:center">50GB</td>
+<td style="text-align:left">/</td>
+</tr>
+</tbody>
+</table>
+<p>这里请不要直接套用，先使用lsblk命令查看本地硬盘。</p>
+<p>用fdisk进行分区</p>
+<ul>
+<li><p>建立GPT分区表</p>
+<p>执行<code># fdisk /dev/nvme0n1</code> (这里nvme0n1为我物理机上的固态硬盘)</p>
+<p>进入fdisk交互页面</p>
+</li>
+<li><p>建立分区</p>
+<p>建立分区前可使用p查看目前分区情况</p>
+<p>n回车建立新分区—-&gt;提示输入开始扇区(这里直接回车)—-&gt;输入结束扇区(输入+200M回车)</p>
+<p>fdisk可以识别M/G等容量单位</p>
+<p>三个分区建立完毕后输入:w保存退出</p>
+<p>执行lsblk查看是否分区完成</p>
+</li>
+</ul>
+<h3 id="6-格式化分区，并挂载"><a href="#6-格式化分区，并挂载" class="headerlink" title="6.格式化分区，并挂载"></a>6.格式化分区，并挂载</h3><ul>
+<li><p>格式化分区</p>
+<p>格式化ESP分区<code># mkfs.fat -F32 /dev/nvme0n1p1</code></p>
+<p>格式化boot分区<code># mkfs.ext4 /dev/nvme0n1p2</code></p>
+<p>格式化根分区<code># mkfs.ext4 /dev/nvme0n1p3</code></p>
+</li>
+<li><p>挂载分区</p>
+<p><code># mount /dev/nvme0n1p1 /mnt</code></p>
+<p><code># mkdir /mnt/boot</code></p>
+<p><code># mount /dev/nvme0n1p2 /mnt/boot</code></p>
+<p><code># mkdir /mnt/boot/EFI</code></p>
+<p><code># mount /dev/nvme0n1p3 /mnt/boot/EFI</code></p>
+<p>执行<code># lsblk</code> 查看是否挂载完成</p>
+</li>
+</ul>
+<h3 id="7-开始安装操作系统"><a href="#7-开始安装操作系统" class="headerlink" title="7.开始安装操作系统"></a>7.开始安装操作系统</h3><p>执行 <code># pacstrap -i /mnt base base-devel</code> 开始安装</p>
+<h3 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h3><ul>
+<li><p>配置fstab</p>
+<p>执行<code># genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></p>
+<p>可执行<code># cat /mnt/etc/fstab</code> 查看执行情况</p>
+</li>
+<li><p>切换到archlinux</p>
+<p>执行<code># arch-chroot /mnt /bin/bash</code>进入到ArchLinux</p>
+</li>
+<li><p>进行本地语言设置</p>
+<p>执行<code># nano /etc/locale.gen</code></p>
+<p>反注释(删除前面的#)</p>
+<p><code>en_US.UTF-8 UTF-8</code></p>
+<p><code>zh_CN.UTF-8 UTF-8</code></p>
+<p>保存并退出</p>
+<p>然后执行<code># locale-gen</code></p>
+<p>回显为</p>
+<blockquote>
+<p><code>Generating locales...</code></p>
+<pre><code>`en_US.UTF-8... done`
+
+`zh_CN.UTF-8... done`
+</code></pre><p><code>Generation complete.</code></p>
+</blockquote>
+<p>执行<code># echo LANG=en_US.UTF-8 &gt; /etc/locale.conf</code></p>
+</li>
+<li><p>设置时区</p>
+<p>执行<code># ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></p>
+</li>
+</ul>
+<p>  也可以执行 <code># tzselect</code> 按照提示选择时区<br>  执行<code># hwclock --systohc --utc1</code> 设置硬件时间</p>
+<h3 id="9-引导系统"><a href="#9-引导系统" class="headerlink" title="9.引导系统"></a>9.引导系统</h3><p>通过grub对系统进行引导</p>
+<ul>
+<li>执行<code># pacman -S dosfstools grub efibootmgr</code>安装引导工具</li>
+<li>执行<code># grub-install --target=x86_64-efi --efi-directory=/boot/EFI --recheck</code>安装grub</li>
+<li>执行<code># grub-mkconfig -o /boot/grub/grub.cfg</code>配置grub</li>
+</ul>
+<p>10.用户管理</p>
+<ul>
+<li><p>root账户  &gt;&gt;&gt; 执行<code># passwd</code>设置root密码</p>
+</li>
+<li><p>添加用户 &gt;&gt;&gt; 执行<code># useradd -m -g users -s /bin/bash 用户名</code>    新键一个用户</p>
+<pre><code>为新用户设置密码`# passwd` 用户名
+</code></pre></li>
+<li><p>添加权限    &gt;&gt;&gt; 执行<code># nano /etc/sudoers</code></p>
+<pre><code>在`root ALL=(ALL)ALL` 下面添加
+
+用户名 `ALL=(ALL)ALL`添加*sudo*权限 
+</code></pre></li>
+<li><p>退出chroot重启</p>
+<p><em>如果你是笔记本用户可以直接跳到下面的网络配置安装无线功能</em></p>
+<p><em>也可以不重启直接配置网络环境和桌面环境</em></p>
+<p>执行<code># exit</code>退出chroot</p>
+<p>执行<code># reboot</code>重启</p>
+</li>
+</ul>
+<h3 id="11-网络配置"><a href="#11-网络配置" class="headerlink" title="11.网络配置"></a>11.网络配置</h3><ul>
+<li><p>有线连接</p>
+<p>普通用户下执行<code># systemctl start dhcpcd</code>开启dhcpcd</p>
+<p>root用户下执行<code># systemctl enable dhcpcd</code>执行后重启自动开启dhcpcd服务</p>
+</li>
+<li><p>无线连接</p>
+<p>执行<code># pacman -S iw wpa_supplicant dialog</code></p>
+</li>
+<li><p>ADSL宽带拨号</p>
+<p>执行<code># pacman -S rp-pppoe# pppoe-setup # systemctl start adsl</code></p>
+<p>chroot下请执行<code># systemctl enable adsl</code></p>
+</li>
+</ul>
+<h3 id="12-安装桌面环境"><a href="#12-安装桌面环境" class="headerlink" title="12.安装桌面环境"></a>12.安装桌面环境</h3><ul>
+<li><p>查看显卡型号</p>
+<p>输入<code># lspci | grep VGA</code>查看显卡型号</p>
+<p>输入<code># pacman -Ss xf86-video</code>查看可用驱动程序选择自己需要的驱动程序</p>
+<p>输入<code># pacman -S xf86-video-intel</code>安装intel核显驱动</p>
+<p>本人在安装nvidia显卡驱动后被系统劝退三次最后选择屏蔽nvidia显卡</p>
+<p>这里本人的解决方案是禁止nvdia驱动和nouveau</p>
+<p><em>在/etc/modprobe.d中添加no-nvidia.conf</em></p>
+<p><em>内容为</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.blacklist nvidia</span><br><span class="line">2.blacklist nvidia_drm</span><br><span class="line">3.blacklist nouveau</span><br></pre></td></tr></table></figure>
+<p><em>完成上述操作后，开机时独显不会被启动startx开启图形界面也只是集显，需要通过nvidia-xrun开启图形界面才回启用独显。</em></p>
+</li>
+<li><p>安装X窗口</p>
+<p>执行<code># pacman -S xorg</code>安装X窗口系统</p>
+<p>执行<code># pacman -S xf86-input-synaptics</code>安装触摸板驱动</p>
+<p>执行<code># pacman -S ttf-dejavu wqy-microhei</code>安装Dejavu和微米黑字体(不安装会出现字符显示不全情况)</p>
+</li>
+<li><p>安装kde-plasma桌面环境</p>
+<p><em>这里简单说下桌面环境安装，有特殊需求的可以看下官方wiki</em></p>
+<p>执行<code># pacman -S plasma</code>安装plasma</p>
+<p>执行<code># pacman -S konsole</code>安装kde下的终端</p>
+<p>执行<code># pacman -S dolphin</code>安装kde下的文件管理</p>
+<p>也可直接执行<code># pacman -S kde-applications</code>安装kde套件</p>
+<p>安装完成后执行<code># systemctl enable sddm</code>启用sddm显示管理器</p>
+<p>执行<code># systemctl enable NetworkManager</code>启用网络管理 </p>
+<p>执行<code># pacman -S plasma-nm</code>安装网络管理的前端工具</p>
+<p>到此为止桌面环境安装完成重启<code># reboot</code></p>
+</li>
+</ul>
+<h3 id="13-安装完成后的工作"><a href="#13-安装完成后的工作" class="headerlink" title="13.安装完成后的工作"></a>13.安装完成后的工作</h3><ul>
+<li><p>添加ArchLinuxCN源</p>
+<p>  执行<code># nano /etc/pacman.conf</code>在末尾添加如下</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line">SigLevel=Never</span><br><span class="line">Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>安装中文输入法</p>
+<p>执行<code># pacman -S fcitx-im fcitx-configtool</code>安装输入法引擎 </p>
+<p>执行<code># nano ~/.xprofile</code>添加以下内容</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line">export QT_IM_MODULE=fcitx</span><br><span class="line">export XMODIFIERS=&quot;@im=fcitx&quot;</span><br></pre></td></tr></table></figure>
+<pre><code>执行`# pacman -S fcitx-sogoupinyin`
+</code></pre><ul>
+<li><p>安装yaourt</p>
+<p>执行<code># pacman -S yaourt</code></p>
+</li>
+</ul>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArchLinux/">ArchLinux</a><span class="tag-list-count">1</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjo4fxmlm0000x4wn5btoywoe" data-title="这是一篇正经的ArchLinux安装指南" data-url="http://yoursite.com/2018/10/28/这是一篇正经的ArchLinux安装指南/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/10/02/MVP架构从蒙蔽到自闭/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/MePride" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://segmentfault.com/u/pride" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li><li><a href="8425284@qq.com" title="Email" target="_blank"><i class="icon icon-email"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 Pride's<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
