@@ -6,8 +6,9 @@
 <li><em>点击对应RecyclerView取除Href通过Jsoup对目标地址进行解析，正则出ISBN以及相关信息。</em></li>
 <li><em>通过ISBN在豆瓣图书进行详细信息查询，用Gson对Json数据进行解析，后载入ImageView、TextView。</em></li>
 </ol>
+<p><a href="https://i.loli.net/2019/01/17/5c403ed45c273.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/01/17/5c403ed45c273.png" alt="img_0991.png"></a></p>
 <p><strong>请求地址：</strong><a href="http://url/search?kw=title&amp;xc=5&amp;searchtype=title" target="_blank" rel="noopener">http://url/search?kw=title&amp;xc=5&amp;searchtype=title</a></p>
-<p><strong>工程结构如下：</strong><img src="/2019/01/16/写一个馆藏查询app吧/Users\Pride\Desktop\TIM截图20190117031259.png" alt="TIM截图20190117031259"></p>
+<p><strong>工程结构如下：</strong><img src="https://i.loli.net/2019/01/17/5c402e836b1bc.png" alt="TIM截图20190117031259"></p>
 <p><strong>请求到的数据如下：</strong></p>
 <p>如此即可通过Jsoup快速获取class为searchList，后通过foreach单独获取出标签<li>内容，单独解析出书的item和其目标地址用List&lt;&gt;储存后载入RecyclerView。</li></p>
 <p><strong>定义Retrofit接口</strong></p>
@@ -28,9 +29,9 @@
 <p>后可载入轮播图控件中刷新适配器。</p>
 <p>在最近的一次更新中，我去掉了搜索按钮替换为输入法键盘上的搜素，搜索按钮位置改为Spinner调整搜索的类型。</p>
 <p>去掉了关于页面的Toolbar…目前学校的书应该正在清点吧，是获取不到详细信息的。</p>
-<p><img src="/2019/01/16/写一个馆藏查询app吧/Users\Pride\Desktop\AFFIX_20190117_020449.png" alt="AFFIX_20190117_020449"></p>
-<p><img src="/2019/01/16/写一个馆藏查询app吧/Users\Pride\Desktop\AFFIX_20190117_020520.png" alt="AFFIX_20190117_020520"></p>
-</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjr0al9sh000fhswnsz9yewe2" data-title="写一个馆藏查询app吧?" data-url="http://yoursite.com/2019/01/16/写一个馆藏查询app吧/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+<p><img src="https://i.loli.net/2019/01/17/5c402ea1cd2c1.png" alt="AFFIX_20190117_020449"></p>
+<p><img src="https://i.loli.net/2019/01/17/5c402eb7e61b4.png" alt="AFFIX_20190117_020520"></p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjr0d5c16000gr4wn4lb5b13e" data-title="写一个馆藏查询app吧?" data-url="http://yoursite.com/2019/01/16/写一个馆藏查询app吧/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
 var duoshuoQuery = {short_name: siteName};
 (function() {
   var ds = document.createElement('script');
