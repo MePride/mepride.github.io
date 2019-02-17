@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="咸鱼的开发日誌"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>构建Android音乐播放器 (二) - Pride's</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="https://i.loli.net/2018/09/04/5b8e619c41726.png"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/MePride"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="https://i.loli.net/2018/09/04/5b8e64ca934c8.jpg"><div class="post-title"><h1 class="title">构建Android音乐播放器 (二)</h1><ul class="meta"><li><i class="icon icon-author"></i>Pride</li><li><i class="icon icon-clock"></i>6 Minutes</li><li><i class="icon icon-calendar"></i>2019年2月17日</li></ul></div></div><div class="article-content" style="max-width:800px"><h4 id="QQ音乐Api的解析"><a href="#QQ音乐Api的解析" class="headerlink" title="QQ音乐Api的解析"></a>QQ音乐Api的解析</h4><p>这里只提供方法，不提供解析代码，<a href="https://github.com/MePride/MusicFlow" target="_blank" rel="noopener">详情戳</a></p>
+<h5 id="一、获取用户数据"><a href="#一、获取用户数据" class="headerlink" title="一、获取用户数据"></a>一、获取用户数据</h5><p><a href="https://c.y.qq.com/rsc/fcgi-bin/fcg_get_profile_homepage.fcg?format=json&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0&amp;cid=205360838&amp;ct=20&amp;userid=这里填写目标QQ&amp;reqfrom=1&amp;reqtype=0" target="_blank" rel="noopener">https://c.y.qq.com/rsc/fcgi-bin/fcg_get_profile_homepage.fcg?format=json&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0&amp;cid=205360838&amp;ct=20&amp;userid=这里填写目标QQ&amp;reqfrom=1&amp;reqtype=0</a></p>
+<p>返回Json数据包含了以下重要信息</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">json字段</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nick</td>
+<td style="text-align:center">昵称</td>
+</tr>
+<tr>
+<td style="text-align:center">headpic</td>
+<td style="text-align:center">头像</td>
+</tr>
+<tr>
+<td style="text-align:center">dissid</td>
+<td style="text-align:center">歌单号</td>
+</tr>
+<tr>
+<td style="text-align:center">subtitle</td>
+<td style="text-align:center">歌单概述</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2019/02/17/构建Android音乐播放器-二/pic1.png" alt="pic1"></p>
+<h5 id="二、通过dissid获取歌单详情"><a href="#二、通过dissid获取歌单详情" class="headerlink" title="二、通过dissid获取歌单详情"></a>二、通过dissid获取歌单详情</h5><p><a href="https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?type=1&amp;json=1&amp;utf8=1&amp;onlysong=0&amp;disstid=目标的dissid&amp;format=json&amp;g_tk=5381&amp;loginUin=0&amp;hostUin=0&amp;format=jsonp&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0" target="_blank" rel="noopener">https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?type=1&amp;json=1&amp;utf8=1&amp;onlysong=0&amp;disstid=目标的dissid&amp;format=json&amp;g_tk=5381&amp;loginUin=0&amp;hostUin=0&amp;format=jsonp&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0</a></p>
+<p>此请求需Referer:<a href="https://y.qq.com/protal/profile.html" target="_blank" rel="noopener">https://y.qq.com/protal/profile.html</a></p>
+<p>  <img src="/2019/02/17/构建Android音乐播放器-二/pic2.png" alt="pic2"></p>
+<p>返回的json数据即为歌单内单曲详细信息</p>
+<h5 id="三、获取歌曲资源文件地址"><a href="#三、获取歌曲资源文件地址" class="headerlink" title="三、获取歌曲资源文件地址"></a>三、获取歌曲资源文件地址</h5><p>这困扰了我很久…..</p>
+<p>之后通过抓包弄明白整个流程</p>
+<h6 id="1-获取vkey"><a href="#1-获取vkey" class="headerlink" title="1.获取vkey"></a>1.获取vkey</h6><p><a href="https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=1278911659&amp;hostUin=0&amp;format=jsonp&amp;callback=callback&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0&amp;cid=205361747&amp;uin=0&amp;songmid=004Q59qi1UXfrx&amp;filename=C400004Q59qi1UXfrx.m4a&amp;guid=3655047200" target="_blank" rel="noopener">https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=1278911659&amp;hostUin=0&amp;format=jsonp&amp;callback=callback&amp;inCharset=utf8&amp;outCharset=utf-8&amp;notice=0&amp;platform=yqq&amp;needNewCode=0&amp;cid=205361747&amp;uin=0&amp;songmid=004Q59qi1UXfrx&amp;filename=C400004Q59qi1UXfrx.m4a&amp;guid=3655047200</a></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>songmid：歌曲mid。可从歌单、专辑、歌手、排行榜接口中获取</li>
+<li>filename：C400 + songmid + .m4a</li>
+<li>format：数据格式</li>
+<li>jsonpCallback：jsonp回调函数</li>
+</ul>
+<p><strong>返回内容</strong>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">callback(&#123;</span><br><span class="line">	"code": 0,</span><br><span class="line">	"cid": 205361747,</span><br><span class="line">	"userip": "",</span><br><span class="line">	"data": &#123;</span><br><span class="line">		"expiration": 80400,</span><br><span class="line">		"items": [&#123;</span><br><span class="line">			"subcode": 0,</span><br><span class="line">			"songmid": "004Q59qi1UXfrx",</span><br><span class="line">			"filename": "C400004Q59qi1UXfrx.m4a",</span><br><span class="line">			"vkey": "F9844A59897E4C3752C40994FB21F0A660B626593492EF8D026F1B92A9DFF592571D010F283EF1B44BCC9BE4CD258195C4813E517F7B0219"</span><br><span class="line">		&#125;]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h6 id="通过返回的vkey进行拼接获取到最终的资源文件地址："><a href="#通过返回的vkey进行拼接获取到最终的资源文件地址：" class="headerlink" title="通过返回的vkey进行拼接获取到最终的资源文件地址："></a>通过返回的vkey进行拼接获取到最终的资源文件地址：</h6><p><a href="http://dl.stream.qqmusic.qq.com/C400004Q59qi1UXfrx.m4a?vkey=F9844A59897E4C3752C40994FB21F0A660B626593492EF8D026F1B92A9DFF592571D010F283EF1B44BCC9BE4CD258195C4813E517F7B0219&amp;guid=3655047200&amp;fromtag=66" target="_blank" rel="noopener">http://dl.stream.qqmusic.qq.com/C400004Q59qi1UXfrx.m4a?vkey=F9844A59897E4C3752C40994FB21F0A660B626593492EF8D026F1B92A9DFF592571D010F283EF1B44BCC9BE4CD258195C4813E517F7B0219&amp;guid=3655047200&amp;fromtag=66</a></p>
+<h6 id="歌词："><a href="#歌词：" class="headerlink" title="歌词："></a>歌词：</h6><p><a href="https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric.fcg?g_tk=5381&amp;uin=0&amp;format=jsonp&amp;jsonpCallback=callback&amp;inCharset=utf-8&amp;outCharset=utf-8&amp;notice=0&amp;platform=h5&amp;needNewCode=1&amp;nobase64=1&amp;musicid=700963&amp;songtype=0&amp;_=1513437581324" target="_blank" rel="noopener">https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric.fcg?g_tk=5381&amp;uin=0&amp;format=jsonp&amp;jsonpCallback=callback&amp;inCharset=utf-8&amp;outCharset=utf-8&amp;notice=0&amp;platform=h5&amp;needNewCode=1&amp;nobase64=1&amp;musicid=700963&amp;songtype=0&amp;_=1513437581324</a></p>
+<p>musicid填写一开始的songid而不是songmid</p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Service/">Android,Service</a><span class="tag-list-count">2</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjs90y7ft000148wnppfvtmdo" data-title="构建Android音乐播放器 (二)" data-url="http://yoursite.com/2019/02/17/构建Android音乐播放器-二/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2019/02/17/构建Android音乐播放器-三/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2019/02/17/构建Android音乐播放器-一/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/MePride" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://segmentfault.com/u/pride" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li><li><a href="8425284@qq.com" title="Email" target="_blank"><i class="icon icon-email"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 Pride's<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
